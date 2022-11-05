@@ -26,6 +26,9 @@ class Exclusao implements InterfaceControlador
         $this->entityManager->remove($curso);
         $this->entityManager->flush();
 
+        $_SESSION['tipoMensagem'] = "success";
+        $_SESSION['mensagem'] = "Curso deletado com sucesso";
+
         header('Location: /listar-cursos');
     }
 }

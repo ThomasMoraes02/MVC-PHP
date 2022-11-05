@@ -14,6 +14,13 @@ if(!array_key_exists($caminho, $rotas)) {
     exit();
 }
 
+session_start();
+
+if(!isset($_SESSION['logado']) && $caminho !== '/login' && $caminho !== '/realiza-login') {
+    header('Location: /login');
+    return;
+}
+
 $classeControladora = $rotas[$caminho];
 
 /**
@@ -21,25 +28,3 @@ $classeControladora = $rotas[$caminho];
  */
 $controlador = new $classeControladora;
 $controlador->processaRequisicao();
-
-// Ponto unico de entrada
-// switch ($_SERVER['PATH_INFO']) {
-//     case '/listar-cursos':
-//         $controlador = new ListarCursos();
-//         $controlador->processaRequisicao();
-//         break;
-
-//     case '/novo-curso':
-//         $controlador = new FormularioInsercao();
-//         $controlador->processaRequisicao(); 
-//         break;
-
-//     case '/salvar-curso':
-//         $controlador = new Persistencia();
-//         $controlador->processaRequisicao(); 
-//         break;
-    
-//     default:
-//         echo "Erro 404";
-//         break;
-// }
