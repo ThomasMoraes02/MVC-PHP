@@ -2,10 +2,13 @@
 namespace Alura\Cursos\Controller;
 
 use Alura\Cursos\Entity\Curso;
+use Alura\Cursos\Helper\FlashMessagesTrait;
 use Alura\Cursos\Infra\EntityManagerCreator;
 
 class Persistencia implements InterfaceControlador
 {
+    use FlashMessagesTrait;
+
     private $entityManager;
 
     public function __construct()
@@ -26,13 +29,13 @@ class Persistencia implements InterfaceControlador
         if(!is_null($id) && $id !== false) {
             $curso->setId($id);
             $this->entityManager->merge($curso);
-            $_SESSION['mensagem'] = "Curso atualizado com sucesso";
+            $mensagem = "Curso atualizado com sucesso";
         } else {
-            $_SESSION['mensagem'] = "Curso adicionado com sucesso";
+            $mensagem = "Curso adicionado com sucesso";
             $this->entityManager->persist($curso);
         }
         
-        $_SESSION['tipoMensagem'] = "success";
+        $this->defineMensagem("success", $mensagem);
         $this->entityManager->flush();
 
         // Redirecionamento

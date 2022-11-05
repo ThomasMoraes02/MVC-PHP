@@ -2,10 +2,13 @@
 namespace Alura\Cursos\Controller;
 
 use Alura\Cursos\Entity\Curso;
+use Alura\Cursos\Helper\FlashMessagesTrait;
 use Alura\Cursos\Infra\EntityManagerCreator;
 
 class Exclusao implements InterfaceControlador
 {
+    use FlashMessagesTrait;
+
     private $entityManager;
 
     public function __construct()
@@ -26,8 +29,7 @@ class Exclusao implements InterfaceControlador
         $this->entityManager->remove($curso);
         $this->entityManager->flush();
 
-        $_SESSION['tipoMensagem'] = "success";
-        $_SESSION['mensagem'] = "Curso deletado com sucesso";
+        $this->defineMensagem("success", "Curso deletado com sucesso");
 
         header('Location: /listar-cursos');
     }
