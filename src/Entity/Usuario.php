@@ -23,6 +23,6 @@ class Usuario
 
     public function senhaEstaCorreta(string $senhaPura): bool
     {
-        return password_verify($senhaPura, $this->senha);
+        return $senhaPura == $this->senha;
     }
 }

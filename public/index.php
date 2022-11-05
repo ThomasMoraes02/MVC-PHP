@@ -4,6 +4,8 @@ require_once __DIR__ . "../../vendor/autoload.php";
 
 use Alura\Cursos\Controller\InterfaceControlador;
 
+// ini_set('display_errors',1);
+
 $caminho = $_SERVER['PATH_INFO'];
 $rotas = require __DIR__ . "/../config/routes.php";
 
